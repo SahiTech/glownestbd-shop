@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glownest | Premium Baby & Cosmetics</title>
+    <meta name="description" content="Ultra-premium baby products and cosmetics store. Shop organic baby care and dermatology-tested cosmetics.">
+    
+    <!-- Google Fonts (Preloaded for Speed) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lightweight) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* =========================================
+           1. CORE VARIABLES & RESET
+           ========================================= */
+        :root {
+            --primary: #FF8BA7;
+            --primary-dark: #E86A8C;
+            --secondary: #A7D8F0; /* Baby Blue */
+            --accent: #FFC4D6;
+            --text-main: #2D3748;
+            --text-light: #718096;
+            --bg-body: #FDF2F5;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --bg-glass-strong: rgba(255, 255, 255, 0.9);
+            --border-glass: 1px solid rgba(255, 255, 255, 0.6);
+            --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --radius: 20px;
+            --font-main: 'Outfit', sans-serif;
+            --font-head: 'Playfair Display', serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: var(--font-main);
+            background: radial-gradient(circle at top left, #FCE7F3, #E0F2FE, #FDF2F5);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        ul { list-style: none; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+        img { display: block; max-width: 100%; height: auto; }
+
+        /* =========================================
+           2. UTILITIES & GLASSMORPHISM
+           ========================================= */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: var(--border-glass);
+            box-shadow: var(--shadow-glass);
+            border-radius: var(--radius);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 139, 167, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 139, 167, 0.5); }
+        .btn-primary:active { transform: scale(0.98); }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1A202C;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        /* Badge */
+        .badge {
+            position: absolute;
+            top: -5px; right: -5px;
+            background: var(--primary-dark);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+        }
+
+        /* =========================================
+           3. HEADER & NAVIGATION
+           ========================================= */
+        header {
+            position: sticky; top: 20px; z-index: 100;
+            margin: 0 20px;
+        }
+        .nav-bar {
+            padding: 15px 30px;
+            border-radius: 50px;
+        }
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1A202C;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links li a {
+            font-weight: 500;
+            color: var(--text-main);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links li a.active, .nav-links li a:hover { color: var(--primary); }
+        .nav-links li a.active::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px;
+            background: var(--primary); border-radius: 2px;
+        }
+
+        .nav-icons { display: flex; gap: 20px; align-items: center; }
+        .icon-btn { position: relative; font-size: 1.2rem; transition: 0.3s; }
+        .icon-btn:hover { color: var(--primary); transform: scale(1.1); }
+
+        /* Mobile Menu */
+        .mobile-toggle { display: none; }
+        
+        @media (max-width: 768px) {
+            header { margin: 0; top: 0; }
+            .nav-bar { border-radius: 0; border-top: 0; border-left: 0; border-right: 0; }
+            .nav-links { display: none; } /* Simplified for single file */
+            .mobile-toggle { display: block; }
+        }
+
+        /* =========================================
+           4. HERO SECTION
+           ========================================= */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1A202C 0%, #FF8BA7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } }
+
+        /* =========================================
+           5. PRODUCT GRID
+           ========================================= */
+        .filters {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: white;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary); color: white; border-color: var(--primary);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            padding-bottom: 60px;
+        }
+
+        .product-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            position: relative;
+        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(255, 139, 167, 0.2); }
+
+        .p-img-wrap {
+            position: relative;
+            padding-top: 100%; /* 1:1 Aspect Ratio */
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: #fff;
+        }
+        .p-img-wrap img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; transition: transform 0.5s;
+        }
+        .product-card:hover .p-img-wrap img { transform: scale(1.08); }
+
+        /* PRODUCT ACTIONS */
+        .p-actions {
+            position: absolute; bottom: 15px; left: 0; right: 0;
+            display: flex; justify-content: center; gap: 12px;
+            opacity: 0; transform: translateY(20px); transition: 0.3s;
+        }
+        .product-card:hover .p-actions { opacity: 1; transform: translateY(0); }
+
+        .action-btn {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: white; color: var(--text-main);
+            display: grid; place-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .action-btn:hover { background: var(--primary); color: white; }
+        .action-btn.view-btn { color: var(--text-light); }
+        .action-btn.view-btn:hover { background: var(--secondary); color: white; }
+
+        .p-info { padding: 15px 10px; text-align: center; }
+        .p-cat { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 5px; }
+        .p-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 5px; color: #1A202C; }
+        .p-price { font-weight: 700; color: var(--primary-dark); font-size: 1.1rem; }
+
+        /* =========================================
+           6. SHOPPING CART DRAWER
+           ========================================= */
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+            z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s;
+            backdrop-filter: blur(2px);
+        }
+        .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+        .cart-drawer {
+            position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 400px;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            z-index: 999; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+        }
+        .cart-drawer.open { transform: translateX(0); }
+
+        .drawer-header { padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .drawer-footer { padding: 25px; border-top: 1px solid rgba(0,0,0,0.05); background: white; }
+
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; }
+        .cart-img { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; }
+        .cart-details { flex: 1; }
+        .cart-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .cart-price { font-size: 0.9rem; color: var(--text-light); }
+        
+        .qty-control {
+            display: inline-flex; align-items: center; background: #F7FAFC;
+            border-radius: 8px; margin-top: 5px;
+        }
+        .qty-btn { width: 28px; height: 28px; display: grid; place-items: center; font-size: 1rem; color: var(--text-main); }
+        .qty-val { width: 30px; text-align: center; font-size: 0.9rem; font-weight: 600; }
+
+        .remove-btn { color: #E53E3E; font-size: 0.8rem; margin-top: 5px; text-decoration: underline; }
+
+        /* =========================================
+           7. PRODUCT DETAIL VIEW (LANDING PAGE)
+           ========================================= */
+        #view-product { padding-top: 40px; padding-bottom: 60px; }
+        
+        .pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        @media (max-width: 768px) { .pdp-grid { grid-template-columns: 1fr; } }
+
+        .pdp-img-wrap { 
+            border-radius: 20px; overflow: hidden; position: relative; 
+            background: white; box-shadow: var(--shadow-glass);
+        }
+        .pdp-img { width: 100%; height: auto; object-fit: cover; }
+        
+        .pdp-info h1 { font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1; }
+        .pdp-cat { color: var(--primary); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .pdp-price { font-size: 2rem; font-weight: 700; color: var(--primary-dark); margin: 20px 0; }
+        .pdp-desc { color: var(--text-light); font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; }
+        
+        .pdp-features { display: flex; gap: 20px; margin-bottom: 30px; }
+        .pdp-feat { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500; }
+        .pdp-feat i { color: var(--primary); }
+
+        /* =========================================
+           8. CHECKOUT & FORMS
+           ========================================= */
+        #checkout-view { padding-top: 40px; max-width: 900px; margin: 0 auto; padding-bottom: 60px; }
+        
+        .checkout-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+        @media (max-width: 768px) { .checkout-grid { grid-template-columns: 1fr; } }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
+        .form-input, .form-textarea {
+            width: 100%; padding: 12px 16px; border-radius: 12px;
+            border: 1px solid #E2E8F0; background: white;
+            font-size: 1rem; transition: 0.3s;
+        }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,139,167,0.1); }
+
+        .summary-card { padding: 25px; border-radius: var(--radius); background: white; border: 1px solid #E2E8F0; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; }
+        .summary-total { border-top: 2px dashed #E2E8F0; padding-top: 15px; margin-top: 15px; font-weight: 700; font-size: 1.2rem; }
+
+        /* Text Content Pages */
+        .text-page { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .text-page h2 { font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 20px; }
+        .text-page h3 { font-size: 1.5rem; margin-top: 30px; margin-bottom: 10px; color: var(--text-main); }
+        .text-page p, .text-page ul { color: var(--text-light); margin-bottom: 15px; line-height: 1.8; }
+        .text-page ul { list-style: disc; padding-left: 20px; }
+
+        /* =========================================
+           9. MODALS & TOAST
+           ========================================= */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .modal {
+            background: white; width: 90%; max-width: 500px; padding: 40px;
+            border-radius: 24px; text-align: center;
+            transform: scale(0.9); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal { transform: scale(1); }
+
+        .success-icon {
+            width: 80px; height: 80px; background: #D1FAE5; color: #10B981;
+            border-radius: 50%; display: grid; place-items: center; margin: 0 auto 20px;
+        }
+
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: #1A202C; color: white; padding: 12px 24px; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1100; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* =========================================
+           10. ENHANCED FOOTER
+           ========================================= */
+        footer {
+            background: #FDF2F5; /* Very Light Pink/White */
+            color: var(--text-main);
+            padding: 80px 0 20px;
+            margin-top: auto;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
+
+        .f-brand p { color: var(--text-light); margin-top: 15px; font-size: 0.95rem; max-width: 300px; }
+        .f-col h4 { font-family: var(--font-head); font-weight: 700; margin-bottom: 20px; font-size: 1.2rem; }
+        .f-links li { margin-bottom: 12px; }
+        .f-links a { color: var(--text-light); transition: 0.2s; font-size: 0.95rem; }
+        .f-links a:hover { color: var(--primary); padding-left: 5px; }
+        
+        .f-bottom {
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 25px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        @media (max-width: 768px) { .f-bottom { flex-direction: column; gap: 10px; } }
+
+        .social-links { display: flex; gap: 12px; margin-top: 20px; }
+        .social-btn {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: white; border: 1px solid #eee;
+            display: grid; place-items: center; color: var(--text-main);
+            transition: 0.3s;
+        }
+        .social-btn:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-3px); }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container glass nav-bar flex items-center justify-between">
+            <a href="#" onclick="router('home')" class="logo">Glow<span>nest</span>.</a>
+            
+            <ul class="nav-links">
+                <li><a onclick="router('home')" id="link-home" class="active">Home</a></li>
+                <li><a onclick="goToCategory('all')" id="link-shop">Shop</a></li>
+                <li><a onclick="router('wishlist')" id="link-wishlist">Wishlist</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="toggleCart()">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="badge" id="cart-count">0</span>
+                </button>
+                <button class="icon-btn mobile-toggle" onclick="router('shop')">
+                    <i data-lucide="grid"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT (SPA VIEWS) -->
+    <main class="container" style="flex: 1;">
+        
+        <!-- 1. HOME VIEW -->
+        <div id="view-home">
+            <section class="hero">
+                <h1 class="animate-up">Gentle Care for <br> Little Angels</h1>
+                <p class="animate-up" style="animation-delay: 0.1s">Premium organic baby products & dermatology-tested cosmetics designed for safety and love.</p>
+                <button onclick="goToCategory('all')" class="btn-primary animate-up" style="animation-delay: 0.2s">
+                    Explore Collection <i data-lucide="arrow-right"></i>
+                </button>
+            </section>
+
+            <!-- Featured Categories -->
+            <section class="mb-4">
+                <h2 class="section-title">Curated For You</h2>
+                <p class="section-subtitle">Handpicked essentials for mom & baby</p>
+                
+                <div class="product-grid" id="featured-grid">
+                    <!-- JS will populate -->
+                </div>
+            </section>
+        </div>
+
+        <!-- 2. SHOP VIEW -->
+        <div id="view-shop" class="hidden">
+            <div style="padding-top: 40px;">
+                <h2 class="section-title">Our Collection</h2>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all" onclick="filterProducts('all', this)">All Products</button>
+                    <button class="filter-btn" data-filter="baby" onclick="filterProducts('baby', this)">Baby Care</button>
+                    <button class="filter-btn" data-filter="cosmetics" onclick="filterProducts('cosmetics', this)">Mom's Glow</button>
+                    <button class="filter-btn" data-filter="skincare" onclick="filterProducts('skincare', this)">Skincare</button>
+                </div>
+                <div class="product-grid" id="shop-grid"></div>
+            </div>
+        </div>
+
+        <!-- 3. PRODUCT DETAIL VIEW -->
+        <div id="view-product" class="hidden">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- 4. WISHLIST VIEW -->
+        <div id="view-wishlist" class="hidden" style="padding-top: 40px;">
+            <h2 class="section-title">My Wishlist ❤️</h2>
+            <div class="product-grid" id="wishlist-grid"></div>
+            <div id="wishlist-empty" class="hidden text-center">
+                <p>Your heart is empty!</p>
+                <button onclick="goToCategory('all')" class="btn-outline mt-4">Go Shopping</button>
+            </div>
+        </div>
+
+        <!-- 5. CHECKOUT VIEW -->
+        <div id="view-checkout" class="hidden">
+            <div class="checkout-grid">
+                <!-- Form -->
+                <div>
+                    <h3 class="section-title" style="text-align: left; font-size: 1.8rem;">Shipping Details</h3>
+                    <form id="checkout-form" class="glass" style="padding: 30px; margin-top: 20px;">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="c-name" class="form-input" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" id="c-phone" class="form-input" required placeholder="01XXXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Delivery Address</label>
+                            <textarea id="c-address" class="form-textarea" rows="3" required placeholder="House, Road, Area..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email (Optional)</label>
+                            <input type="email" id="c-email" class="form-input" placeholder="john@example.com">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div>
+                    <h3 class="section-title" style="text-align: left; font-size: 1.8rem;">Order Summary</h3>
+                    <div class="summary-card mt-4">
+                        <div id="checkout-items" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                            <!-- Items -->
+                        </div>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="c-subtotal">৳0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery (Flat Rate)</span>
+                            <span>৳120</span>
+                        </div>
+                        <div class="summary-total summary-row">
+                            <span>Total (COD)</span>
+                            <span id="c-total" style="color: var(--primary-dark)">৳120</span>
+                        </div>
+                        
+                        <button onclick="placeOrder()" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 20px;">
+                            Confirm COD Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. TRACK ORDER VIEW -->
+        <div id="view-track" class="hidden text-page text-center" style="max-width: 500px;">
+            <h2>Track Order</h2>
+            <p>Enter your Order ID to see the current status.</p>
+            <div class="glass" style="padding: 30px; margin-top: 20px;">
+                <input type="text" id="track-id" class="form-input mb-4" placeholder="Order ID (e.g. #GLO-1234)">
+                <button onclick="trackOrder()" class="btn-primary w-100">Track Now</button>
+                <div id="track-result" class="mt-4 hidden p-3" style="background: #F0FDF4; color: #166534; border-radius: 10px;">
+                    <strong>Status:</strong> Out for Delivery 🚚
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. CONTENT PAGES (Privacy, Returns, Terms) -->
+        <div id="view-return" class="hidden text-page">
+            <h2>Happy Return Policy</h2>
+            <p>At Glownest, we want you to love your purchase. If you are not completely satisfied, we offer a hassle-free return policy.</p>
+            <h3>Conditions for Return</h3>
+            <ul>
+                <li>Items must be unused and in original packaging.</li>
+                <li>Return request must be initiated within 7 days of delivery.</li>
+                <li>Proof of purchase is required.</li>
+            </ul>
+            <p>To initiate a return, please contact our helpline.</p>
+        </div>
+
+        <div id="view-privacy" class="hidden text-page">
+            <h2>Privacy Policy</h2>
+            <p>Your privacy is important to us. This policy outlines how we collect, use, and protect your personal information.</p>
+            <h3>Information We Collect</h3>
+            <p>We collect information such as your name, address, and phone number only for the purpose of processing your orders.</p>
+            <h3>Data Security</h3>
+            <p>We do not share your personal data with third parties except for logistics partners required to deliver your order.</p>
+        </div>
+
+        <div id="view-terms" class="hidden text-page">
+            <h2>Terms & Conditions</h2>
+            <p>Welcome to Glownest. By using our website, you agree to the following terms.</p>
+            <h3>Usage</h3>
+            <p>You agree to use our website only for lawful purposes. Product prices and availability are subject to change without notice.</p>
+            <h3>Liability</h3>
+            <p>Glownest is not liable for any indirect damages arising from the use of our products.</p>
+        </div>
+
+    </main>
+
+    <!-- ENHANCED FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Info -->
+                <div class="f-col f-brand">
+                    <a href="#" onclick="router('home')" class="logo">Glow<span>nest</span>.</a>
+                    <p>Premium care for mothers and babies. Organic, safe, and made with love.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61569908571326" class="social-btn"><i data-lucide="facebook"></i></a>
+                        <a href="https://www.instagram.com/glownest.review/" class="social-btn"><i data-lucide="instagram"></i></a>
+                        <a href="https://www.youtube.com/@glownes" class="social-btn"><i data-lucide="youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Shop Links -->
+                <div class="f-col">
+                    <h4>Shop</h4>
+                    <ul class="f-links">
+                        <li><a onclick="goToCategory('all')">All Products</a></li>
+                        <li><a onclick="goToCategory('baby')">Baby Care</a></li>
+                        <li><a onclick="goToCategory('cosmetics')">Mom's Glow</a></li>
+                        <li><a onclick="router('wishlist')">My Wishlist</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Care -->
+                <div class="f-col">
+                    <h4>Customer Care</h4>
+                    <ul class="f-links">
+                        <li><a onclick="router('track')">Track Order</a></li>
+                        <li><a onclick="router('return')">Happy Return</a></li>
+                        <li><a onclick="router('privacy')">Privacy Policy</a></li>
+                        <li><a onclick="router('terms')">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="f-col">
+                    <h4>Contact Us</h4>
+                    <ul class="f-links">
+                        <li><a href="tel:+8801827664401"><i data-lucide="phone" size="16" style="vertical-align: middle; margin-right:5px"></i> + 8809638196994</a></li>
+                        <li><a href="mailto:glownestbd.shop@gmail.com"><i data-lucide="mail" size="16" style="vertical-align: middle; margin-right:5px"></i> support@glownest.shop</a></li>
+                        <li><span><i data-lucide="map-pin" size="16" style="vertical-align: middle; margin-right:5px"></i> Dhaka, Bangladesh</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="f-bottom">
+                <span>&copy; 2025 Glownest.shop. All rights reserved.</span>
+                <span>Developed by <strong>  <a href="https://sahitech.github.io/home/" class="dev-credit" target="_blank">SahiTech</a></strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART DRAWER -->
+    <div class="drawer-overlay" id="drawer-overlay" onclick="toggleCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="drawer-header">
+            <h3 style="font-family: var(--font-head); font-size: 1.5rem;">Shopping Bag</h3>
+            <button onclick="toggleCart()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="drawer-body" id="cart-items">
+            <!-- JS Populated -->
+        </div>
+        <div class="drawer-footer">
+            <div class="flex justify-between mb-4" style="font-weight: 700; font-size: 1.2rem;">
+                <span>Total:</span>
+                <span id="cart-total">৳0</span>
+            </div>
+            <button onclick="goToCheckout()" class="btn-primary" style="width: 100%; justify-content: center;">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="success-icon">
+                <i data-lucide="check" size="40"></i>
+            </div>
+            <h2 style="font-family: var(--font-head); font-size: 2rem; margin-bottom: 10px;">Order Placed!</h2>
+            <p style="color: var(--text-light); margin-bottom: 30px;">Thank you for your order. We will contact you shortly for confirmation.</p>
+            <div style="background: #F7FAFC; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                <p style="font-size: 0.9rem;">Order ID: <span id="order-id" style="font-weight: 700;">#GLO-8823</span></p>
+            </div>
+            <button onclick="closeModal()" class="btn-outline">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast">
+        <i data-lucide="check-circle" color="#48BB78"></i>
+        <span id="toast-msg">Item added to cart</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+    
+// --- 1. DATA (Mock Database) ---
+const products = [
+    // --- SKINCARE & COSMETICS ---
+    { 
+        id: 1, 
+        name: "The Ordinary Niacinamide 10% + Zinc 1%", 
+        price: 1050, 
+        category: "skincare", 
+        desc: "বাংলাদেশের এক নম্বর ট্রেন্ডিং সিরাম। এটি ত্বকের অতিরিক্ত সিবাম নিয়ন্ত্রণ করে, পোরস ছোট করে এবং ব্রণের দাগ দূর করতে জাদুর মতো কাজ করে। তৈলাক্ত ত্বকের জন্য এটি অপরিহার্য।", 
+        img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 2, 
+        name: "Matrix Opti Care Smooth Straight Shampoo", 
+        price: 780, 
+        category: "cosmetics", 
+        desc: "চুল রিবন্ডিং বা কালার করার পর যত্নে বাংলাদেশে সবচেয়ে বেশি ব্যবহৃত শ্যাম্পু। এটি শেয়া বাটার সমৃদ্ধ যা চুলকে সিল্কি এবং জটমুক্ত রাখে।", 
+        img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 3, 
+        name: "Cosrx Advanced Snail 96 Mucin Essence", 
+        price: 1490, 
+        category: "skincare", 
+        desc: "গ্লাস স্কিন পাওয়ার জন্য সেরা কোরিয়ান প্রোডাক্ট। ৯৬% স্নেল মিউসিন সমৃদ্ধ এই এসেন্স ত্বককে গভীর থেকে হাইড্রেট করে এবং ড্যামেজ স্কিন রিপেয়ার করে।", 
+        img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 4, 
+        name: "CeraVe Foaming Facial Cleanser", 
+        price: 1350, 
+        category: "skincare", 
+        desc: "ডার্মাটোলজিস্টদের প্রথম পছন্দ। এতে আছে সিরামাইডস এবং হ্যালুরোনিক অ্যাসিড যা ত্বকের ন্যাচারাল ব্যারিয়ার ঠিক রেখে গভীর থেকে পরিষ্কার করে।", 
+        img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 5, 
+        name: "Skin1004 Madagascar Centella Ampoule", 
+        price: 1250, 
+        category: "skincare", 
+        desc: "সেনসিটিভ ত্বকের জন্য বর্তমানে টপ রেটেড কোরিয়ান অ্যাম্পুল। এটি ত্বকের লালচে ভাব কমায় এবং জ্বালাপোড়া শান্ত করে ত্বককে সুস্থ রাখে।", 
+        img: "https://images.unsplash.com/photo-1601049541289-9b1b76e57a41?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 6, 
+        name: "Matrix Opti Care Professional Serum", 
+        price: 850, 
+        category: "cosmetics", 
+        desc: "চুলকে রোদ এবং ধূলাবালি থেকে রক্ষা করতে এবং ইনস্ট্যান্ট গ্লো দিতে এই সিরামটি বাংলাদেশে অত্যন্ত জনপ্রিয়। এক ফোঁটাতেই চুল হয়ে ওঠে ঝরঝরে।", 
+        img: "https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 7, 
+        name: "The Ordinary Hyaluronic Acid 2% + B5", 
+        price: 1150, 
+        category: "skincare", 
+        desc: "শুষ্ক এবং প্রাণহীন ত্বকের জন্য বেস্ট সলিউশন। এটি বাতাসের আর্দ্রতা টেনে ত্বকের ভেতরে ধরে রাখে, ফলে ত্বক থাকে সবসময় প্লাম্পি ও হাইড্রেটেড।", 
+        img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 8, 
+        name: "Beauty of Joseon Relief Sun Rice + Probiotics", 
+        price: 1390, 
+        category: "skincare", 
+        desc: "বর্তমানে বিশ্বের এক নম্বর ভাইরাল সানস্ক্রিন। কোনো হোয়াইট কাস্ট ছাড়াই এটি ত্বককে সূর্যের ক্ষতিকর রশ্মি থেকে রক্ষা করে এবং ময়েশ্চারাইজ করে।", 
+        img: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 9, 
+        name: "Some By Mi AHA BHA PHA 30 Days Miracle Toner", 
+        price: 1280, 
+        category: "skincare", 
+        desc: "ব্রণ এবং ব্ল্যাকহেডস দূর করতে বিশ্বজুড়ে খ্যাতি সম্পন্ন টোনার। মাত্র ৩০ দিনে এটি আপনার ত্বকের টেক্সচার পরিবর্তন করে দিতে সক্ষম।", 
+        img: "https://images.unsplash.com/photo-1570191047617-61268c9f240a?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 10, 
+        name: "Neutrogena Hydro Boost Water Gel", 
+        price: 1450, 
+        category: "skincare", 
+        desc: "তৈলাক্ত ত্বকের জন্য হালকা ওজনের সেরা ময়েশ্চারাইজার। এটি জেল বেসড হওয়ায় ত্বকে দ্রুত মিশে যায় এবং দীর্ঘক্ষণ হাইড্রেটেড রাখে।", 
+        img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 11, 
+        name: "L'Oreal Paris Elvive Hair Serum", 
+        price: 990, 
+        category: "cosmetics", 
+        desc: "চুলকে সিল্কি ও উজ্জ্বল করতে এই সিরামটি অত্যন্ত কার্যকরী। এর ফ্লোরাল সুবাস এবং স্মুথনেস আপনাকে মুগ্ধ করবে।", 
+        img: "https://images.unsplash.com/photo-1626015343400-348638637731?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 12, 
+        name: "Panoxyl Acne Foaming Wash 10% Benzoyl Peroxide", 
+        price: 1650, 
+        category: "skincare", 
+        desc: "যাদের মুখে খুব বেশি জেদি ব্রণ আছে, তাদের জন্য এটি বর্তমানে বাংলাদেশে সবচেয়ে বেশি বিক্রীত ও জনপ্রিয় ক্লিনজার।", 
+        img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80" 
+    },
+
+    // --- BABY CARE (8 Products) ---
+    { 
+        id: 13, 
+        name: "Aveeno Baby Daily Moisture Lotion", 
+        price: 1150, 
+        category: "baby", 
+        desc: "প্রাকৃতিক ওটস সমৃদ্ধ এই লোশনটি শিশুর কোমল ত্বকের জন্য সেরা। এটি ২৪ ঘণ্টা আর্দ্রতা ধরে রাখে এবং কোনো ক্ষতিকর কেমিক্যাল নেই।", 
+        img: "https://images.unsplash.com/photo-1556228720-1987df2856c3?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 14, 
+        name: "Sudocrem Antiseptic Healing Cream", 
+        price: 790, 
+        category: "baby", 
+        desc: "ডায়াপার র‍্যাশ, একজিমা বা সামান্য কাটা-ছেঁড়ার জন্য মায়েদের ভরসা সুডোক্রেম। শিশুর সুস্থ ত্বকের জন্য এটি ঘরে থাকা মাস্ট।", 
+        img: "https://images.unsplash.com/photo-1519681393784-d8e5b5a45742?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 15, 
+        name: "Johnson's Cottontouch Newborn Bath", 
+        price: 680, 
+        category: "baby", 
+        desc: "নবজাতকের অতি সংবেদনশীল ত্বকের জন্য ডিজাইন করা। এতে সত্যিকারের তুলা মেশানো হয়েছে যা শিশুর ত্বককে দেয় বাড়তি যত্ন।", 
+        img: "https://images.unsplash.com/photo-1516054575922-f0b8eeadfcee?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 16, 
+        name: "CeraVe Baby Moisturizing Lotion", 
+        price: 1850, 
+        category: "baby", 
+        desc: "প্রিমিয়াম কোয়ালিটি নিশ্চিত করতে এই লোশনটি অতুলনীয়। এতে থাকা ভিটামিন ও সিরামাইড শিশুর ত্বকের ন্যাচারাল ব্যারিয়ার শক্তিশালী করে।", 
+        img: "https://images.unsplash.com/photo-1522771753035-1a5b65195497?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 17, 
+        name: "Aveeno Baby Wash & Shampoo", 
+        price: 1250, 
+        category: "baby", 
+        desc: "চোখে লাগলেও জ্বলে না এমন টিয়ার-ফ্রি ফর্মুলা। এটি শিশুর মাথার ত্বক ও শরীর একইসাথে পরিষ্কার ও নরম রাখে।", 
+        img: "https://images.unsplash.com/photo-1544126592-807daa215a75?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 18, 
+        name: "Kodomo Baby Powder Extra Mild", 
+        price: 450, 
+        category: "baby", 
+        desc: "অত্যন্ত ফ্রেশ ও হালকা সুগন্ধির এই পাউডারটি শিশুদের র‍্যাশ মুক্ত ও সতেজ রাখতে দারুণ সাহায্য করে।", 
+        img: "https://images.unsplash.com/photo-1519681393784-d8e5b5a45742?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 19, 
+        name: "Cetaphil Baby Moisturizing Oil", 
+        price: 1100, 
+        category: "baby", 
+        desc: "শিশুর ম্যাসাজের জন্য সেরা তেল। এতে আছে অর্গানিক ক্যালেন্ডুলা যা শিশুর ত্বককে শান্ত রাখে এবং আরামদায়ক ঘুম নিশ্চিত করে।", 
+        img: "https://images.unsplash.com/photo-1522771753035-1a5b65195497?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 20, 
+        name: "Burt's Bees Baby Diaper Ointment", 
+        price: 1250, 
+        category: "baby", 
+        desc: "শতভাগ প্রাকৃতিক উপাদানে তৈরি এই অয়েন্টমেন্টটি র‍্যাশ সারাতে দ্রুত কাজ করে। প্রাকৃতিক সুরক্ষায় এটি সেরা।", 
+        img: "https://images.unsplash.com/photo-1556228720-1987df2856c3?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 21, 
+        name: "Burt's Bees Baby Diaper Ointment", 
+        price: 1250, 
+        category: "baby", 
+        desc: "শতভাগ প্রাকৃতিক উপাদানে তৈরি এই অয়েন্টমেন্টটি র‍্যাশ সারাতে দ্রুত কাজ করে। প্রাকৃতিক সুরক্ষায় এটি সেরা।", 
+        img: "https://images.unsplash.com/photo-1556228720-1987df2856c3?auto=format&fit=crop&w=800&q=80" 
+    },
+    { 
+        id: 22, 
+        name: "Vaseline® Lip Therapy® Original Tin", 
+        price: 250, 
+        category: "skincare", 
+        desc: "Vaseline Rosy Lip care Instantly softens and soothes dry lips and leaves a sheer pink tint and rosy glow", 
+        img: "./images/vaseline.webp" 
+    }
+];
+
+
+        // --- 2. STATE MANAGEMENT ---
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        // --- 3. INIT & NAVIGATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderProducts(products, 'shop-grid');
+            renderProducts(products.slice(0, 4), 'featured-grid'); 
+            updateCartUI();
+        });
+
+        function router(viewName) {
+            // Hide all views
+            const views = document.querySelectorAll('[id^="view-"]');
+            views.forEach(view => view.classList.add('hidden'));
+            
+            // Remove active class from nav links
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+            // Show target view
+            const target = document.getElementById(`view-${viewName}`);
+            if(target) target.classList.remove('hidden');
+            
+            // Update Link Active State
+            const link = document.getElementById(`link-${viewName}`);
+            if(link) link.classList.add('active');
+
+            // View Specific Logic
+            if(viewName === 'wishlist') renderWishlist();
+            if(viewName === 'checkout') renderCheckout();
+            
+            window.scrollTo(0,0);
+        }
+
+        function goToCategory(category) {
+            router('shop');
+            // Slight delay to ensure DOM update
+            setTimeout(() => {
+                const btn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
+                if(btn) filterProducts(category, btn);
+            }, 50);
+        }
+
+        // --- 4. RENDER PRODUCTS ---
+        function renderProducts(items, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = items.map(p => `
+                <div class="product-card glass">
+                    <div class="p-img-wrap">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy">
+                        <div class="p-actions">
+                            <button class="action-btn" onclick="toggleWishlist(${p.id})">
+                                <i data-lucide="heart" fill="${isInWishlist(p.id) ? '#E86A8C' : 'none'}" color="${isInWishlist(p.id) ? '#E86A8C' : 'currentColor'}"></i>
+                            </button>
+                            <button class="action-btn view-btn" onclick="viewProduct(${p.id})">
+                                <i data-lucide="eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="addToCart(${p.id})">
+                                <i data-lucide="shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-info">
+                        <div class="p-cat">${p.category}</div>
+                        <h3 class="p-title">${p.name}</h3>
+                        <div class="p-price">৳${p.price}</div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function filterProducts(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+            renderProducts(filtered, 'shop-grid');
+        }
+
+        // --- 5. PRODUCT DETAIL VIEW ---
+        function viewProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            const container = document.getElementById('view-product');
+            
+            container.innerHTML = `
+                <button onclick="router('shop')" class="btn-outline mb-4" style="margin-bottom:20px; border:none; padding-left:0;">
+                    <i data-lucide="arrow-left" style="vertical-align:middle"></i> Back to Shop
+                </button>
+                <div class="glass pdp-grid" style="padding:30px;">
+                    <div class="pdp-img-wrap">
+                        <img src="${p.img}" class="pdp-img" alt="${p.name}">
+                    </div>
+                    <div class="pdp-info">
+                        <span class="pdp-cat">${p.category} Collection</span>
+                        <h1>${p.name}</h1>
+                        <div class="pdp-price">৳${p.price}</div>
+                        <p class="pdp-desc">${p.desc}</p>
+                        
+                        <div class="pdp-features">
+                            <div class="pdp-feat"><i data-lucide="shield-check"></i> 100% Authentic</div>
+                            <div class="pdp-feat"><i data-lucide="truck"></i> Fast Delivery</div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button class="btn-primary" onclick="addToCart(${p.id}); router('checkout')">Buy Now</button>
+                            <button class="btn-outline" onclick="addToCart(${p.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            router('product');
+            lucide.createIcons();
+        }
+
+        // --- 6. CART LOGIC ---
+        function addToCart(id) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty++;
+            } else {
+                const product = products.find(p => p.id === id);
+                cart.push({ ...product, qty: 1 });
+            }
+            saveCart();
+            updateCartUI();
+            showToast('Added to bag');
+            toggleCart(true); 
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.reduce((a, c) => a + c.qty, 0);
+            
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-muted">Your bag is empty.</p>';
+                document.getElementById('cart-total').innerText = '৳0';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                total += item.price * item.qty;
+                return `
+                <div class="cart-item">
+                    <img src="${item.img}" class="cart-img">
+                    <div class="cart-details">
+                        <div class="cart-title">${item.name}</div>
+                        <div class="cart-price">৳${item.price}</div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                            <div class="qty-val">${item.qty}</div>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('cart-total').innerText = '৳' + total;
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            item.qty += delta;
+            if (item.qty <= 0) removeFromCart(id);
+            else saveCart();
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+        function toggleCart(forceOpen = null) {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            const shouldOpen = forceOpen !== null ? forceOpen : !drawer.classList.contains('open');
+            
+            if(shouldOpen) {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+            } else {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+            }
+        }
+
+        // --- 7. WISHLIST LOGIC ---
+        function isInWishlist(id) { return wishlist.includes(id); }
+
+        function toggleWishlist(id) {
+            if (isInWishlist(id)) {
+                wishlist = wishlist.filter(pid => pid !== id);
+                showToast('Removed from wishlist');
+            } else {
+                wishlist.push(id);
+                showToast('Added to wishlist');
+            }
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            
+            // Smart Re-render based on current view
+            const activeLink = document.querySelector('.nav-links a.active');
+            if(activeLink && activeLink.id === 'link-wishlist') {
+                renderWishlist();
+            } else if (activeLink && activeLink.id === 'link-shop') {
+                const activeBtn = document.querySelector('.filter-btn.active');
+                if(activeBtn) {
+                    const filter = activeBtn.dataset.filter;
+                    filterProducts(filter, activeBtn);
+                }
+            } else {
+                renderProducts(products.slice(0, 4), 'featured-grid');
+            }
+        }
+
+        function renderWishlist() {
+            const items = products.filter(p => wishlist.includes(p.id));
+            if (items.length === 0) {
+                document.getElementById('wishlist-grid').innerHTML = '';
+                document.getElementById('wishlist-empty').classList.remove('hidden');
+            } else {
+                document.getElementById('wishlist-empty').classList.add('hidden');
+                renderProducts(items, 'wishlist-grid');
+            }
+        }
+
+        // --- 8. CHECKOUT LOGIC ---
+        function goToCheckout() {
+            if(cart.length === 0) {
+                showToast('Cart is empty!');
+                return;
+            }
+            toggleCart(false);
+            router('checkout');
+        }
+
+        function renderCheckout() {
+            const container = document.getElementById('checkout-items');
+            let subtotal = 0;
+            container.innerHTML = cart.map(item => {
+                subtotal += item.price * item.qty;
+                return `
+                <div class="flex justify-between mb-2" style="font-size:0.9rem;">
+                    <span>${item.name} (x${item.qty})</span>
+                    <span>৳${item.price * item.qty}</span>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('c-subtotal').innerText = '৳' + subtotal;
+            document.getElementById('c-total').innerText = '৳' + (subtotal + 120);
+        }
+
+        function placeOrder() {
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const address = document.getElementById('c-address').value;
+
+            if(!name || !phone || !address) {
+                showToast('Please fill all required fields');
+                return;
+            }
+
+            document.getElementById('order-id').innerText = '#GLO-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('success-modal').classList.add('active');
+            
+            cart = [];
+            saveCart();
+            updateCartUI();
+            document.getElementById('checkout-form').reset();
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('active');
+            router('home');
+        }
+
+        // --- 9. TRACK ORDER LOGIC ---
+        function trackOrder() {
+            const id = document.getElementById('track-id').value;
+            if(!id) {
+                showToast("Please enter Order ID");
+                return;
+            }
+            // Mock logic
+            const resultBox = document.getElementById('track-result');
+            resultBox.classList.remove('hidden');
+            resultBox.innerHTML = `<strong>Status for ${id}:</strong> Out for Delivery 🚚`;
+        }
+
+        // --- 10. TOAST NOTIFICATION ---
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+    </script>
+</body>
+</html>
